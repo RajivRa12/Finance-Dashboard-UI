@@ -1,13 +1,13 @@
 # Finance Dashboard UI
 
-Frontend dashboard built for the Finance Dashboard UI assignment using React, TypeScript, and Vite. The project focuses on clear component structure, well-managed frontend state, and an intuitive interface for tracking financial activity.
+Frontend dashboard built for the Finance Dashboard UI assignment using React, TypeScript, and Vite. The project is fully frontend-only, uses mock data, and focuses on clear component structure, well-managed local state, and an intuitive interface for tracking financial activity.
 
 ## Requirement Coverage
 
 ### 1) Dashboard Overview
 
 - Summary cards include Total Balance, Income, Expenses, Savings Rate, and additional quick stats.
-- Time-based visualization: balance trend line chart.
+- Time-based visualization: balance trend bar chart.
 - Categorical visualization: spending breakdown pie chart.
 
 ### 2) Transactions Section
@@ -20,6 +20,7 @@ Frontend dashboard built for the Finance Dashboard UI assignment using React, Ty
 - Role switch is available through a dropdown (`viewer` / `admin`).
 - Viewer mode is read-only.
 - Admin mode enables adding, editing, deleting transactions and budget updates.
+- No backend is required; all records are mocked and stored locally in the frontend.
 
 ### 4) Insights Section
 
