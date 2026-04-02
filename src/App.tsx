@@ -31,9 +31,25 @@ import type {
 } from './types/finance'
 import './App.css'
 
+function readStorageItem(key: string) {
+  try {
+    return localStorage.getItem(key)
+  } catch {
+    return null
+  }
+}
+
+function writeStorageItem(key: string, value: string) {
+  try {
+    localStorage.setItem(key, value)
+  } catch {
+    // Ignore browsers that block storage access.
+  }
+}
+
 function App() {
   const [transactions, setTransactions] = useState<Transaction[]>(() => {
-    const saved = localStorage.getItem(storageKeys.transactions)
+    const saved = readStorageItem(storageKeys.transactions)
 
     if (!saved) {
       return initialTransactions
@@ -48,17 +64,17 @@ function App() {
   })
 
   const [role, setRole] = useState<Role>(() => {
-    const saved = localStorage.getItem(storageKeys.role)
+    const saved = readStorageItem(storageKeys.role)
     return saved === 'admin' ? 'admin' : 'viewer'
   })
 
   const [theme, setTheme] = useState<'light' | 'dark'>(() => {
-    const saved = localStorage.getItem(storageKeys.theme)
+    const saved = readStorageItem(storageKeys.theme)
     return saved === 'dark' ? 'dark' : 'light'
   })
 
   const [budgets, setBudgets] = useState<Budget[]>(() => {
-    const saved = localStorage.getItem(storageKeys.budgets)
+    const saved = readStorageItem(storageKeys.budgets)
 
     if (!saved) {
       return initialBudgets
@@ -93,20 +109,22 @@ function App() {
   const mutedColor = getCssVariable('--muted', '#6b7280')
 
   useEffect(() => {
-    localStorage.setItem(storageKeys.role, role)
+    writeStorageItem(storageKeys.role, role)
   }, [role])
 
   useEffect(() => {
-    localStorage.setItem(storageKeys.theme, theme)
-    document.documentElement.dataset.theme = theme
+    writeStorageItem(storageKeys.theme, theme)
+    if (typeof document !== 'undefined') {
+      document.documentElement.dataset.theme = theme
+    }
   }, [theme])
 
   useEffect(() => {
-    localStorage.setItem(storageKeys.transactions, JSON.stringify(transactions))
+    writeStorageItem(storageKeys.transactions, JSON.stringify(transactions))
   }, [transactions])
 
   useEffect(() => {
-    localStorage.setItem(storageKeys.budgets, JSON.stringify(budgets))
+    writeStorageItem(storageKeys.budgets, JSON.stringify(budgets))
   }, [budgets])
 
   const categories = useMemo(
