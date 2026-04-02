@@ -3,6 +3,11 @@ import react from '@vitejs/plugin-react'
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: '/Finance-Dashboard-UI/',
+  base: './',
   plugins: [react()],
+  build: {
+    rollupOptions: {
+      input: 'site-entry.html',
+    },
+  },
 })
